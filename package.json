@@ -1,0 +1,33 @@
+{
+  "name": "cdk-framework",
+  "version": "1.0.0",
+  "description": "- to provide structure for development of complex AWS CDK apps, by:    - short files ( supporting code readability )    - single-purpose files ( faster and smoother switch of alternative services, useful when testing out and adopting new services )    - consistent structure ( accelerates old codebase maintainance as whole modules can be updated; convenient for mocking)",
+  "main": "index.js",
+  "lambdas": {
+    "description": "<ARN from CloundFormation template.yml (e.g. myHandlerFF0F0999)>",
+    "firstLambda": "firstLambdaC1AD90D3",
+    "secondLambda": "secondLambdaDAE59511"
+},
+"scripts": {
+    "deploy": "npm run build && npm run test && cdk deploy",
+    "debug": "npm run build && npm run debug:firstLambda && npm run debug:secondLambda",
+    "debug:firstLambda": "sam local invoke ${npm_package_lambdas_firstLambda} -e debug/firstLambda.event.json > debug/firstLambda.output.json",
+    "debug:secondLambda": "sam local invoke ${npm_package_lambdas_secondLambda} -e debug/secondLambda.event.json > debug/secondLambda.output.json",
+    "build": "npm run build:TypeScript && npm run build:CloudFormation && npm run lint",
+    "build:TypeScript": "tsc",
+    "build:CloudFormation": "cdk synth --no-staging > template.yml",
+    "lint": "tslint -c tslint.json --fix 'src/*.ts'",
+    "test": "jest"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/georstoy/cdk-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/georstoy/cdk-framework/issues"
+  },
+  "homepage": "https://github.com/georstoy/cdk-framework#readme"
+}

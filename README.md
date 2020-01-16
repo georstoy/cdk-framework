@@ -43,28 +43,6 @@ npm install --save \
 ts-lint \
 ```
 
-## npm scripts in the package.json at the root folder
-```
-"vars": {
-    "myLambda": <ARN from CloundFormation template.yml (e.g. wikiPageHandlerFF0F0999)>,
-    "myLambdaDescription": "here's what my lambda do" 
-},
-"scripts": {
-    "deploy": "npm run build && npm run test && cdk deploy",
-    "debug": "npm run build && npm run debug:${npm_package_vars_myLambda}",
-    "debug:${npm_package_vars_myLambda}": "sam local invoke ${npm_package_vars_myLambda} -e debug/event.json > debug/output.json",
-    "build": "npm run build:TypeScript && npm run build:CloudFormation && npm runlint",
-    "build:TypeScript": "tsc",
-    "build:CloudFormation": "cdk synth --no-staging > template.yml",
-    "lint": "tslint -c tslint.json --fix 'src/*.ts'",
-    "test": "jest"
-}
-```
-## .gitignore
-```
-template.yml
-```
-
 # Debugging
 ## Pre-requisites
 
